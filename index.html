@@ -1,75 +1,86 @@
 <html lang="en">
-    @media(max-width: 900px) {
-      .gallery { grid-template-columns: repeat(2, 1fr); }
-      .hero h2 { font-size: 40px; }
-    }
+width:100%;margin-bottom:80px;opacity:0;transform:scale(0.96);
+animation:imgFade 1.2s ease forwards
+}
 
-    @media(max-width: 600px) {
-      .gallery { grid-template-columns: 1fr; padding: 100px 20px; }
-      header { padding: 20px; }
-    }
-  </style>
+@keyframes imgFade{to{opacity:1;transform:scale(1)}}
+
+@media(max-width:900px){
+.gallery{column-count:2;padding:140px 40px}
+.hero h2{font-size:42px}
+}
+
+@media(max-width:600px){
+.gallery{column-count:1}
+header{padding:20px}
+}
+</style>
 </head>
 <body>
 
 <header>
-  <h1>Roxana Cosma</h1>
+<h1>ROXANA COSMA</h1>
 </header>
 
 <section class="hero">
-  <h2>Selected Work</h2>
+<h2>Selected Work</h2>
 </section>
 
 <section class="gallery">
-  <div class="item" onclick="openProject('p1')">
-    <img src="img/p1.jpg">
-    <div class="overlay"><h3>Project One</h3></div>
-  </div>
 
-  <div class="item" onclick="openProject('p2')">
-    <img src="img/p2.jpg">
-    <div class="overlay"><h3>Project Two</h3></div>
-  </div>
+<div class="item" onclick="openProject('p1')">
+<img src="img/p1.jpg">
+<div class="overlay">Project One</div>
+</div>
+
+<div class="item" onclick="openProject('p2')">
+<img src="img/p2.jpg">
+<div class="overlay">Project Two</div>
+</div>
+
+<div class="item" onclick="openProject('p3')">
+<img src="img/p3.jpg">
+<div class="overlay">Project Three</div>
+</div>
+
 </section>
 
-<div id="p1" class="project-page">
-  <div class="close-btn" onclick="closeProject()">CLOSE</div>
-  <div class="project-title">Project One</div>
-  <div class="project-images">
-    <img src="img/p3.jpg">
-    <img src="img/p4.jpg">
-  </div>
+<!-- PROJECT -->
+<div id="p1" class="project">
+<div class="close" onclick="closeProject()">CLOSE</div>
+<h3>Project One</h3>
+<img src="img/p1_1.jpg">
+<img src="img/p1_2.jpg">
 </div>
 
-<div id="p2" class="project-page">
-  <div class="close-btn" onclick="closeProject()">CLOSE</div>
-  <div class="project-title">Project Two</div>
-  <div class="project-images">
-    <img src="https://picsum.photos/1200/800?2">
-    <img src="https://picsum.photos/1200/800?22">
-  </div>
+<div id="p2" class="project">
+<div class="close" onclick="closeProject()">CLOSE</div>
+<h3>Project Two</h3>
+<img src="img/p2_1.jpg">
+<img src="img/p2_2.jpg">
 </div>
 
-<footer>© 2026 Roxana Cosma</footer>
+<div id="p3" class="project">
+<div class="close" onclick="closeProject()">CLOSE</div>
+<h3>Project Three</h3>
+<img src="img/p3_1.jpg">
+<img src="img/p3_2.jpg">
+</div>
 
 <script>
-  function openProject(id) {
-    document.getElementById(id).classList.add('active');
-  }
+function openProject(id){document.getElementById(id).classList.add('active')}
+function closeProject(){document.querySelectorAll('.project').forEach(p=>p.classList.remove('active'))}
 
-  function closeProject() {
-    document.querySelectorAll('.project-page').forEach(p => p.classList.remove('active'));
-  }
-
-  // scroll reveal
-  const items = document.querySelectorAll('.item');
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if(entry.isIntersecting) entry.target.classList.add('visible');
-    });
-  }, { threshold: 0.2 });
-
-  items.forEach(el => observer.observe(el));
+// stagger reveal
+const items=document.querySelectorAll('.item')
+const obs=new IntersectionObserver((entries)=>{
+entries.forEach((e,i)=>{
+if(e.isIntersecting){
+setTimeout(()=>e.target.classList.add('visible'),i*120)
+}
+})
+},{threshold:0.2})
+items.forEach(el=>obs.observe(el))
 </script>
 
 </body>
