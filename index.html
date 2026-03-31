@@ -1,0 +1,76 @@
+<html lang="en">
+    @media(max-width: 900px) {
+      .gallery { grid-template-columns: repeat(2, 1fr); }
+      .hero h2 { font-size: 40px; }
+    }
+
+    @media(max-width: 600px) {
+      .gallery { grid-template-columns: 1fr; padding: 100px 20px; }
+      header { padding: 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Roxana Cosma</h1>
+</header>
+
+<section class="hero">
+  <h2>Selected Work</h2>
+</section>
+
+<section class="gallery">
+  <div class="item" onclick="openProject('p1')">
+    <img src="img/p1.jpg">
+    <div class="overlay"><h3>Project One</h3></div>
+  </div>
+
+  <div class="item" onclick="openProject('p2')">
+    <img src="img/p2.jpg">
+    <div class="overlay"><h3>Project Two</h3></div>
+  </div>
+</section>
+
+<div id="p1" class="project-page">
+  <div class="close-btn" onclick="closeProject()">CLOSE</div>
+  <div class="project-title">Project One</div>
+  <div class="project-images">
+    <img src="img/p3.jpg">
+    <img src="img/p4.jpg">
+  </div>
+</div>
+
+<div id="p2" class="project-page">
+  <div class="close-btn" onclick="closeProject()">CLOSE</div>
+  <div class="project-title">Project Two</div>
+  <div class="project-images">
+    <img src="https://picsum.photos/1200/800?2">
+    <img src="https://picsum.photos/1200/800?22">
+  </div>
+</div>
+
+<footer>© 2026 Roxana Cosma</footer>
+
+<script>
+  function openProject(id) {
+    document.getElementById(id).classList.add('active');
+  }
+
+  function closeProject() {
+    document.querySelectorAll('.project-page').forEach(p => p.classList.remove('active'));
+  }
+
+  // scroll reveal
+  const items = document.querySelectorAll('.item');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting) entry.target.classList.add('visible');
+    });
+  }, { threshold: 0.2 });
+
+  items.forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
